@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:replace="~{layout/base :: base(
+      title='Unidades Administrativas',
+      pageTitle='Unidades Administrativas',
+      content=~{::content}
+    )}"></div>
+
+<div th:fragment="content">
+  <div class="d-flex gap-2 mb-3">
+    <a class="btn btn-primary" th:href="@{/cadastros/unidades/novo}">Nova Unidade</a>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-striped mb-0 align-middle">
+        <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Sigla</th>
+          <th class="text-end">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${unidades}">
+          <td th:text="${u.nome}">Nome</td>
+          <td th:text="${u.sigla}">SIG</td>
+          <td class="text-end">
+            <a class="btn btn-sm btn-outline-secondary" th:href="@{'/cadastros/unidades/' + ${u.id} + '/editar'}">Editar</a>
+            <form th:action="@{'/cadastros/unidades/' + ${u.id} + '/inativar'}" method="post" class="d-inline">
+              <button class="btn btn-sm btn-outline-danger" type="submit"
+                      onclick="return confirm('Inativar esta unidade?')">Inativar</button>
+            </form>
+          </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(unidades)}">
+          <td colspan="3" class="text-center text-muted py-4">Nenhuma unidade cadastrada.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

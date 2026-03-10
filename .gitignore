@@ -1,0 +1,84 @@
+# =========================
+# Documentação auxiliar
+# =========================
+HELP.md
+
+# =========================
+# Build Maven
+# =========================
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# =========================
+# Arquivos compactados
+# =========================
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+
+# =========================
+# Arquivos de configuração sensíveis
+# =========================
+src/main/resources/application.properties
+src/main/resources/application-*.properties
+src/main/resources/application-*.yml
+src/main/resources/application-*.yaml
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# Arquivos temporários
+# =========================
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# =========================
+# Sistema Operacional
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# STS (Spring Tool Suite)
+# =========================
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# =========================
+# IntelliJ IDEA
+# =========================
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# =========================
+# NetBeans
+# =========================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# =========================
+# VS Code
+# =========================
+.vscode/
