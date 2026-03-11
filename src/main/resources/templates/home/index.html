@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(
+        title='Início',
+        pageTitle='Painel do SCC',
+        content=~{::content}
+      )}">
+
+<div th:fragment="content">
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <div class="scc-welcome-card">
+                <h2 class="mb-2">Bem-vindo ao SCC</h2>
+                <p class="mb-0 text-muted">
+                    Sistema de Contas de Convênio — gestão de cadastros, repasses, prestação de contas e conciliação financeira.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="scc-stat-card">
+                <small>Convênios Ativos</small>
+                <h3>3</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="scc-stat-card">
+                <small>Prestações Pendentes</small>
+                <h3>7</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="scc-stat-card">
+                <small>Conciliações Divergentes</small>
+                <h3>2</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="scc-stat-card">
+                <small>Mensagens</small>
+                <h3>5</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <strong>Atalhos rápidos</strong>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="#" class="btn btn-primary">Novo Convênio</a>
+                        <a href="#" class="btn btn-outline-primary">Nova Prestação</a>
+                        <a href="#" class="btn btn-outline-secondary">Novo Repasse</a>
+                        <a th:href="@{/cadastros/unidades}" class="btn btn-outline-dark">Unidades</a>
+                        <a href="#" class="btn btn-outline-dark">Fornecedores</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <strong>Pendências</strong>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-0 ps-3">
+                        <li>Prestação de março aguardando análise</li>
+                        <li>Conciliação financeira com divergência</li>
+                        <li>2 documentos pendentes de anexo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside th:fragment="sidebar" id="sidebar" class="scc-sidebar">
+    <div class="scc-sidebar-top">
+        <div class="scc-brand">
+            <div class="scc-logo">S</div>
+            <div class="scc-brand-text">
+                <strong>SCC</strong>
+                <small>Sistema de Contas</small>
+            </div>
+        </div>
+    </div>
+
+    <nav class="scc-sidebar-menu">
+        <div class="scc-menu-group">
+            <span class="scc-menu-title">Início</span>
+            <a class="scc-menu-link" th:href="@{/}">
+                <span>🏠</span>
+                <span>Painel</span>
+            </a>
+        </div>
+
+        <div class="scc-menu-group">
+            <span class="scc-menu-title">Cadastros</span>
+            <a class="scc-menu-link" th:href="@{/cadastros/unidades}">
+                <span>🏢</span>
+                <span>Unidades</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>📄</span>
+                <span>Documentos Aceitos</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>🏷️</span>
+                <span>Despesas</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>🧾</span>
+                <span>Itens de Despesa</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>🤝</span>
+                <span>Fornecedores</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>👥</span>
+                <span>Entidade Conveniada</span>
+            </a>
+        </div>
+
+        <div class="scc-menu-group">
+            <span class="scc-menu-title">Planejamento</span>
+            <a class="scc-menu-link" href="#">
+                <span>🗂️</span>
+                <span>Plano de Trabalho</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>📘</span>
+                <span>Convênios</span>
+            </a>
+        </div>
+
+        <div class="scc-menu-group">
+            <span class="scc-menu-title">Financeiro</span>
+            <a class="scc-menu-link" href="#">
+                <span>💰</span>
+                <span>Conta do Convênio</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>⬇️</span>
+                <span>Repasses</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>🔁</span>
+                <span>Movimentos</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>📈</span>
+                <span>Investimentos</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>✅</span>
+                <span>Conciliação</span>
+            </a>
+        </div>
+
+        <div class="scc-menu-group">
+            <span class="scc-menu-title">Prestação</span>
+            <a class="scc-menu-link" href="#">
+                <span>📝</span>
+                <span>Prestações</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>📎</span>
+                <span>Anexos</span>
+            </a>
+            <a class="scc-menu-link" href="#">
+                <span>📊</span>
+                <span>Resumo Financeiro</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="scc-sidebar-bottom">
+        <a class="scc-menu-link scc-settings-link" href="#">
+            <span>⚙️</span>
+            <span>Definições</span>
+        </a>
+    </div>
+</aside>
+</body>
+</html>

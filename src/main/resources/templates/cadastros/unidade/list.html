@@ -1,46 +1,67 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<body>
-<div th:replace="~{layout/base :: base(
-      title='Unidades Administrativas',
-      pageTitle='Unidades Administrativas',
-      content=~{::content}
-    )}"></div>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(
+        title='Unidades Administrativas',
+        pageTitle='Unidades Administrativas',
+        content=~{::content}
+      )}">
 
 <div th:fragment="content">
-  <div class="d-flex gap-2 mb-3">
-    <a class="btn btn-primary" th:href="@{/cadastros/unidades/novo}">Nova Unidade</a>
-  </div>
-
-  <div class="card shadow-sm">
-    <div class="table-responsive">
-      <table class="table table-striped mb-0 align-middle">
-        <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Sigla</th>
-          <th class="text-end">Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="u : ${unidades}">
-          <td th:text="${u.nome}">Nome</td>
-          <td th:text="${u.sigla}">SIG</td>
-          <td class="text-end">
-            <a class="btn btn-sm btn-outline-secondary" th:href="@{'/cadastros/unidades/' + ${u.id} + '/editar'}">Editar</a>
-            <form th:action="@{'/cadastros/unidades/' + ${u.id} + '/inativar'}" method="post" class="d-inline">
-              <button class="btn btn-sm btn-outline-danger" type="submit"
-                      onclick="return confirm('Inativar esta unidade?')">Inativar</button>
-            </form>
-          </td>
-        </tr>
-        <tr th:if="${#lists.isEmpty(unidades)}">
-          <td colspan="3" class="text-center text-muted py-4">Nenhuma unidade cadastrada.</td>
-        </tr>
-        </tbody>
-      </table>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h4 class="mb-1">Cadastro de Unidades Administrativas</h4>
+            <p class="text-muted mb-0">Gerencie as unidades administrativas cadastradas no sistema.</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/cadastros/unidades/novo}">Nova Unidade</a>
     </div>
-  </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sigla</th>
+                        <th>Status</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="u : ${unidades}">
+                        <td th:text="${u.nome}">Nome</td>
+                        <td th:text="${u.sigla}">Sigla</td>
+                        <td>
+                            <span th:if="${u.ativo}" class="badge text-bg-success">Ativa</span>
+                            <span th:if="${!u.ativo}" class="badge text-bg-secondary">Inativa</span>
+                        </td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary"
+                               th:href="@{'/cadastros/unidades/' + ${u.id} + '/editar'}">Editar</a>
+
+                            <form th:if="${u.ativo}"
+                                  th:action="@{'/cadastros/unidades/' + ${u.id} + '/inativar'}"
+                                  method="post"
+                                  class="d-inline">
+                                <button class="btn btn-sm btn-outline-danger"
+                                        type="submit"
+                                        onclick="return confirm('Deseja inativar esta unidade administrativa?')">
+                                    Inativar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(unidades)}">
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            Nenhuma unidade administrativa cadastrada.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-</body>
+
 </html>

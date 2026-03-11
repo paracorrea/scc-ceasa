@@ -14,6 +14,7 @@ Projeto Spring Boot (3.3.x) + Thymeleaf + JPA + Flyway para o **SCC (Sistema de 
    ```
 
 2. Ajuste credenciais em `src/main/resources/application.properties`
+cp src/main/resources/application-example.properties src/main/resources/application.properties
 
 3. Rode:
    ```bash

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="topbar(pageTitle)" class="scc-topbar">
+    <div class="d-flex align-items-center gap-3">
+        <button id="sidebarToggle" class="btn btn-sm btn-outline-secondary" type="button">
+            ☰
+        </button>
+        <div>
+            <h5 class="mb-0" th:text="${pageTitle} ?: 'SCC'">SCC</h5>
+            <small class="text-muted">Sistema de Contas de Convênio</small>
+        </div>
+    </div>
+
+    <div class="scc-topbar-actions">
+        <div class="scc-search-box">
+            <input type="text" class="form-control form-control-sm" placeholder="Buscar...">
+        </div>
+
+        <button class="btn btn-light btn-sm position-relative" type="button" title="Mensagens">
+            🔔
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                3
+            </span>
+        </button>
+
+        <div class="dropdown">
+            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Fernando Corrêa
+                <span class="text-muted ms-1">| Gestor</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">Meu perfil</a></li>
+                <li><a class="dropdown-item" href="#">Preferências</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+</body>
+</html>
