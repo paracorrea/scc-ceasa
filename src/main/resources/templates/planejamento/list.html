@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(
+        title='Planos de Trabalho',
+        pageTitle='Planos de Trabalho',
+        content=~{::content}
+      )}">
+
+<div th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h4 class="mb-1">Cadastro de Planos de Trabalho</h4>
+            <p class="text-muted mb-0">Gerencie os planos de trabalho das entidades conveniadas.</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/planejamento/planos-trabalho/novo}">
+            Novo Plano de Trabalho
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Entidade</th>
+                        <th>Edição</th>
+                        <th>Status</th>
+                        <th>Descrição</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${planos}">
+                        <td th:text="${p.entidadeConveniada.nome}">Entidade</td>
+                        <td th:text="${p.edicao}">1</td>
+                        <td th:text="${p.status}">EM_ELABORACAO</td>
+                        <td th:text="${p.descricao}">Descrição</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary"
+                               th:href="@{'/planejamento/planos-trabalho/' + ${p.id} + '/editar'}">
+                                Editar
+                            </a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(planos)}">
+                        <td colspan="5" class="text-center py-5 text-muted">
+                            Nenhum plano de trabalho cadastrado.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

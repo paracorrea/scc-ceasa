@@ -38,7 +38,7 @@ BEFORE UPDATE ON scc_unidade_administrativa
 FOR EACH ROW EXECUTE FUNCTION scc_set_updated_at();
 
 
-CREATE TABLE IF NOT EXISTS scc_entidade_conveniada (
+CREATE TABLE scc_entidade_conveniada (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   nome varchar(255) NOT NULL,
   cnpj varchar(18) NOT NULL,
@@ -57,7 +57,7 @@ BEFORE UPDATE ON scc_entidade_conveniada
 FOR EACH ROW EXECUTE FUNCTION scc_set_updated_at();
 
 
-CREATE TABLE IF NOT EXISTS scc_dirigente_entidade (
+CREATE TABLE scc_dirigente_entidade (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   entidade_conveniada_id uuid NOT NULL,
   nome varchar(255) NOT NULL,
@@ -65,10 +65,9 @@ CREATE TABLE IF NOT EXISTS scc_dirigente_entidade (
   cargo varchar(120),
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  CONSTRAINT fk_scc_dirigente_entidade
-    FOREIGN KEY (entidade_conveniada_id) REFERENCES scc_entidade_conveniada(id)
+  FOREIGN KEY (entidade_conveniada_id)
+      REFERENCES scc_entidade_conveniada(id)
 );
-
 CREATE INDEX IF NOT EXISTS ix_scc_dirigente_entidade_id ON scc_dirigente_entidade(entidade_conveniada_id);
 
 CREATE TRIGGER trg_scc_dirigente_updated_at
@@ -76,7 +75,7 @@ BEFORE UPDATE ON scc_dirigente_entidade
 FOR EACH ROW EXECUTE FUNCTION scc_set_updated_at();
 
 
-CREATE TABLE IF NOT EXISTS scc_conta_bancaria_entidade (
+CREATE TABLE scc_conta_bancaria_entidade (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   entidade_conveniada_id uuid NOT NULL,
   banco varchar(120) NOT NULL,
@@ -84,8 +83,8 @@ CREATE TABLE IF NOT EXISTS scc_conta_bancaria_entidade (
   numero_conta varchar(50) NOT NULL,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  CONSTRAINT fk_scc_conta_entidade
-    FOREIGN KEY (entidade_conveniada_id) REFERENCES scc_entidade_conveniada(id)
+  FOREIGN KEY (entidade_conveniada_id)
+      REFERENCES scc_entidade_conveniada(id)
 );
 
 CREATE INDEX IF NOT EXISTS ix_scc_conta_entidade_id ON scc_conta_bancaria_entidade(entidade_conveniada_id);

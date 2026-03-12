@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(
+        title='Plano de Trabalho',
+        pageTitle='Plano de Trabalho',
+        content=~{::content}
+      )}">
+
+<div th:fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-0 pb-0">
+                    <h4 class="mb-1"
+                        th:text="${plano.id == null ? 'Novo Plano de Trabalho' : 'Editar Plano de Trabalho'}">
+                        Plano de Trabalho
+                    </h4>
+                    <p class="text-muted mb-0">
+                        Cadastre os dados principais do plano. Após salvar, será possível gerenciar metas e etapas.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <form th:action="@{/planejamento/planos-trabalho}" method="post" th:object="${plano}">
+                        <input type="hidden" th:field="*{id}"/>
+
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label class="form-label">Entidade Conveniada</label>
+                                <select class="form-select" th:field="*{entidadeConveniada.id}" required>
+                                    <option value="">Selecione...</option>
+                                    <option th:each="e : ${entidades}"
+                                            th:value="${e.id}"
+                                            th:text="${e.nome}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">Edição</label>
+                                <input class="form-control" type="number" min="1" th:field="*{edicao}" required>
+                            </div>
+
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" th:field="*{status}">
+                                    <option value="EM_ELABORACAO">Em elaboração</option>
+                                    <option value="ANALISADO">Analisado</option>
+                                    <option value="APROVADO">Aprovado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Descrição</label>
+                            <textarea class="form-control" rows="4" th:field="*{descricao}" maxlength="1000" required></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="btn btn-outline-secondary"
+                               th:href="@{/planejamento/planos-trabalho}">
+                                Voltar
+                            </a>
+
+                            <div class="d-flex gap-2">
+                                <button type="reset" class="btn btn-light">Limpar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div th:if="${plano.id != null}" class="card shadow-sm border-0 mt-4">
+                <div class="card-header bg-white border-0">
+                    <h5 class="mb-1">Relacionamentos do Plano</h5>
+                    <p class="text-muted mb-0">
+                        Gerencie as metas e etapas vinculadas a este plano de trabalho.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-2">
+                        <a class="btn btn-outline-dark" href="#">
+                            Gerenciar Metas
+                        </a>
+                        <a class="btn btn-outline-dark" href="#">
+                            Gerenciar Etapas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

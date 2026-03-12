@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(
+        title='Entidade Conveniada',
+        pageTitle='Entidade Conveniada',
+        content=~{::content}
+      )}">
+
+<div th:fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-0 pb-0">
+                    <h4 class="mb-1"
+                        th:text="${entidade.id == null ? 'Nova Entidade Conveniada' : 'Editar Entidade Conveniada'}">
+                        Entidade Conveniada
+                    </h4>
+                    <p class="text-muted mb-0">
+                        Informe os dados cadastrais da entidade conveniada. Após salvar, será possível cadastrar dirigentes e contas bancárias vinculadas.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <form th:action="@{/cadastros/entidades-conveniadas}" method="post" th:object="${entidade}">
+                        <input type="hidden" th:field="*{id}"/>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="nome">Nome</label>
+                            <input id="nome"
+                                   class="form-control"
+                                   type="text"
+                                   th:field="*{nome}"
+                                   maxlength="255"
+                                   required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="cnpj">CNPJ</label>
+                                <input id="cnpj"
+                                       class="form-control"
+                                       type="text"
+                                       th:field="*{cnpj}"
+                                       maxlength="18"
+                                       required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="cidade">Cidade</label>
+                                <input id="cidade"
+                                       class="form-control"
+                                       type="text"
+                                       th:field="*{cidade}"
+                                       maxlength="120">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="email">Email</label>
+                                <input id="email"
+                                       class="form-control"
+                                       type="email"
+                                       th:field="*{email}"
+                                       maxlength="255">
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label" for="telefone">Telefone</label>
+                                <input id="telefone"
+                                       class="form-control"
+                                       type="text"
+                                       th:field="*{telefone}"
+                                       maxlength="50">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="btn btn-outline-secondary"
+                               th:href="@{/cadastros/entidades-conveniadas}">
+                                Voltar
+                            </a>
+
+                            <div class="d-flex gap-2">
+                                <button type="reset" class="btn btn-light">Limpar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Relacionamentos -->
+            <div th:if="${entidade.id != null}" class="card shadow-sm border-0 mt-4">
+                <div class="card-header bg-white border-0">
+                    <h5 class="mb-1">Relacionamentos da Entidade</h5>
+                    <p class="text-muted mb-0">
+                        Gerencie os dados vinculados a esta entidade conveniada.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                                <h6 class="mb-2">Dirigentes</h6>
+                                <p class="text-muted small mb-3">
+                                    Cadastre os dirigentes responsáveis pela entidade conveniada.
+                                </p>
+                                <a class="btn btn-outline-dark btn-sm"
+                                   th:href="@{'/cadastros/entidades-conveniadas/' + ${entidade.id} + '/dirigentes'}">
+                                    Gerenciar Dirigentes
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="border rounded-3 p-3 h-100 bg-light-subtle">
+                                <h6 class="mb-2">Contas Bancárias</h6>
+                                <p class="text-muted small mb-3">
+                                    Cadastre as contas bancárias utilizadas para os repasses e movimentações da entidade.
+                                </p>
+                                <a class="btn btn-outline-dark btn-sm"
+                                   th:href="@{'/cadastros/entidades-conveniadas/' + ${entidade.id} + '/contas-bancarias'}">
+                                    Gerenciar Contas Bancárias
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ajuda para novo cadastro -->
+            <div th:if="${entidade.id == null}" class="alert alert-info mt-4 shadow-sm border-0">
+                Salve primeiro a entidade conveniada para habilitar o cadastro de dirigentes e contas bancárias.
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(
+        title='Entidades Conveniadas',
+        pageTitle='Entidades Conveniadas',
+        content=~{::content}
+      )}">
+
+<div th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h4 class="mb-1">Cadastro de Entidades Conveniadas</h4>
+            <p class="text-muted mb-0">
+                Gerencie as entidades conveniadas que poderão originar planos de trabalho e convênios.
+            </p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/cadastros/entidades-conveniadas/novo}">
+            Nova Entidade
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>CNPJ</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Cidade</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="e : ${entidades}">
+                        <td th:text="${e.nome}">Nome</td>
+                        <td th:text="${e.cnpj}">00.000.000/0000-00</td>
+                        <td th:text="${e.email}">email@dominio.com</td>
+                        <td th:text="${e.telefone}">(19) 0000-0000</td>
+                        <td th:text="${e.cidade}">Campinas</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary"
+                               th:href="@{'/cadastros/entidades-conveniadas/' + ${e.id} + '/editar'}">
+                                Editar
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(entidades)}">
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            Nenhuma entidade conveniada cadastrada.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

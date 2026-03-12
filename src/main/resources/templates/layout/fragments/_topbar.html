@@ -24,18 +24,48 @@
             </span>
         </button>
 
-        <div class="dropdown">
-            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Fernando Corrêa
-                <span class="text-muted ms-1">| Gestor</span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Meu perfil</a></li>
-                <li><a class="dropdown-item" href="#">Preferências</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#">Sair</a></li>
-            </ul>
-        </div>
+  	<div class="dropdown">
+    <button class="btn btn-light btn-sm dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown">
+
+        <span th:text="${usuarioLogado}">Usuário</span>
+        <span class="text-muted ms-1">
+            | <span th:text="${perfilLogado}">Perfil</span>
+        </span>
+
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+
+        <li>
+            <a class="dropdown-item" th:href="@{/perfil}">
+                👤 Meu perfil
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-item" th:href="@{/preferencias}">
+                ⚙️ Preferências
+            </a>
+        </li>
+
+        <li><hr class="dropdown-divider"></li>
+
+        <li>
+          <form th:action="@{/logout}" method="post" style="margin:0;">
+  			  <input type="hidden"
+          		 th:name="${_csrf.parameterName}"
+          		 th:value="${_csrf.token}" />
+
+    			<button type="submit" class="dropdown-item text-danger">
+       			 🚪 Sair
+    			</button>
+		</form>
+        </li>
+
+    </ul>
+</div>
     </div>
 </header>
 </body>
