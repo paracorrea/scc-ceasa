@@ -36,9 +36,7 @@ public class PrestacaoController {
             @RequestParam UUID convenioId,
             @RequestParam String mesReferencia
     ) {
-
-        LocalDate referencia = YearMonth.parse(mesReferencia)
-                .atDay(1);
+        LocalDate referencia = YearMonth.parse(mesReferencia).atDay(1);
 
         var prestacao = service.criar(convenioId, referencia);
 
