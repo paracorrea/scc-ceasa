@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(
+        title='Convênios',
+        pageTitle='Convênios',
+        content=~{::content}
+      )}">
+      
+      
+    <div th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h4 class="mb-1">Cadastro de Convênios</h4>
+            <p class="text-muted mb-0">Gerencie os convênios vinculados aos planos de trabalho.</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/convenios/novo}">
+            Novo Convênio
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Número</th>
+                        <th>Plano</th>
+                        <th>Objeto</th>
+                        <th>Período</th>
+                        <th>Valor Total</th>
+                        <th>Status</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c : ${convenios}">
+                        <td th:text="${c.numero}">000/2026</td>
+                        <td th:text="${c.planoTrabalho.id}">Plano</td>
+                        <td th:text="${c.objeto}">Objeto</td>
+                        <td>
+                            <span th:text="${#temporals.format(c.dataInicio, 'dd/MM/yyyy')}"></span>
+                            -
+                            <span th:text="${#temporals.format(c.dataFim, 'dd/MM/yyyy')}"></span>
+                        </td>
+                        <td th:text="${#numbers.formatDecimal(c.valorTotal, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                        <td th:text="${c.status}">ATIVO</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary"
+                               th:href="@{'/convenios/' + ${c.id} + '/editar'}">
+                                Editar
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(convenios)}">
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            Nenhum convênio cadastrado.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+      

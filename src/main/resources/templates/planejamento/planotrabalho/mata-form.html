@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(
+        title='Meta do Plano',
+        pageTitle='Meta do Plano',
+        content=~{::content}
+      )}">
+
+<div th:fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-lg-9 col-xl-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-0 pb-0">
+                    <h4 class="mb-1"
+                        th:text="${meta.id == null ? 'Nova Meta' : 'Editar Meta'}">
+                        Meta
+                    </h4>
+                    <p class="text-muted mb-0">
+                        Plano:
+                        <strong th:text="${plano.descricao}">Descrição do plano</strong>
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <form method="post"
+                          th:action="@{'/planejamento/planos-trabalho/' + ${plano.id} + '/metas'}"
+                          th:object="${meta}">
+                        <input type="hidden" th:field="*{id}"/>
+
+                        <div class="mb-4">
+                            <label class="form-label">Descrição da Meta</label>
+                            <textarea class="form-control"
+                                      rows="4"
+                                      th:field="*{descricao}"
+                                      maxlength="1000"
+                                      required></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="btn btn-outline-secondary"
+                               th:href="@{'/planejamento/planos-trabalho/' + ${plano.id} + '/metas'}">
+                                Voltar
+                            </a>
+
+                            <div class="d-flex gap-2">
+                                <button type="reset" class="btn btn-light">Limpar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div th:if="${meta.id != null}" class="card shadow-sm border-0 mt-4">
+                <div class="card-header bg-white border-0">
+                    <h5 class="mb-1">Relacionamentos da Meta</h5>
+                    <p class="text-muted mb-0">
+                        Gerencie as etapas vinculadas a esta meta.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <a class="btn btn-outline-dark"
+                       th:href="@{'/planejamento/metas/' + ${meta.id} + '/etapas'}">
+                        Gerenciar Etapas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

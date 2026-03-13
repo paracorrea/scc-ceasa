@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <title>Prestações</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container py-4">
+
+<h2>Prestações de Contas</h2>
+
+<div class="mb-3">
+    <a class="btn btn-primary"
+       th:href="@{/prestacoes/nova}">
+        Nova Prestação
+    </a>
+</div>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+    <tr>
+        <th>Convênio</th>
+        <th>Mês</th>
+        <th>Status</th>
+        <th width="160">Ações</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr th:each="prestacao : ${prestacoes}">
+
+        <td th:text="${prestacao.convenio.numero}"></td>
+
+        <td th:text="${#temporals.format(prestacao.mesReferencia, 'MM/yyyy')}"></td>
+
+        <td th:text="${prestacao.status}"></td>
+
+        <td>
+            <a class="btn btn-sm btn-outline-dark"
+               th:href="@{/prestacoes/{id}(id=${prestacao.id})}">
+                Abrir
+            </a>
+        </td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(
+        title='Convênio',
+        pageTitle='Convênio',
+        content=~{::content}
+      )}">
+
+<div th:fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-0 pb-0">
+                    <h4 class="mb-1"
+                        th:text="${convenio.id == null ? 'Novo Convênio' : 'Editar Convênio'}">
+                        Convênio
+                    </h4>
+                    <p class="text-muted mb-0">
+                        Cadastre os dados principais do convênio.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <form th:action="@{/convenios}" method="post" th:object="${convenio}">
+                        <input type="hidden" th:field="*{id}"/>
+
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label class="form-label">Plano de Trabalho</label>
+                                <select class="form-select" th:field="*{planoTrabalho.id}" required>
+                                    <option value="">Selecione...</option>
+                                    <option th:each="p : ${planos}"
+                                            th:value="${p.id}"
+                                            th:text="${p.descricao}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Unidade Administrativa</label>
+                                <select class="form-select" th:field="*{unidadeAdministrativa.id}">
+                                    <option value="">Selecione...</option>
+                                    <option th:each="u : ${unidades}"
+                                            th:value="${u.id}"
+                                            th:text="${u.nome}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Número</label>
+                                <input class="form-control"
+                                       type="text"
+                                       th:field="*{numero}"
+                                       maxlength="60"
+                                       required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Protocolo</label>
+                                <input class="form-control"
+                                       type="text"
+                                       th:field="*{protocolo}"
+                                       maxlength="60">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Objeto</label>
+                            <textarea class="form-control"
+                                      rows="3"
+                                      th:field="*{objeto}"
+                                      maxlength="1000"
+                                      required></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Data de Assinatura</label>
+                                <input class="form-control" type="date" th:field="*{dataAssinatura}">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Data Início</label>
+                                <input class="form-control" type="date" th:field="*{dataInicio}">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Data Fim</label>
+                                <input class="form-control" type="date" th:field="*{dataFim}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">Valor Total</label>
+                                <input class="form-control"
+                                       type="number"
+                                       step="0.01"
+                                       th:field="*{valorTotal}"
+                                       required>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" th:field="*{status}">
+                                    <option value="ATIVO">Ativo</option>
+                                    <option value="ENCERRADO">Encerrado</option>
+                                    <option value="SUSPENSO">Suspenso</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="btn btn-outline-secondary" th:href="@{/convenios}">
+                                Voltar
+                            </a>
+
+                            <div class="d-flex gap-2">
+                                <button type="reset" class="btn btn-light">Limpar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div th:if="${convenio.id != null}" class="card shadow-sm border-0 mt-4">
+                <div class="card-header bg-white border-0">
+                    <h5 class="mb-1">Relacionamentos do Convênio</h5>
+                    <p class="text-muted mb-0">
+                        Próximos módulos vinculados a este convênio.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-2">
+                        <a class="btn btn-outline-dark" href="#">
+                            Prestações
+                        </a>
+                        <a class="btn btn-outline-dark" href="#">
+                            Resumo Financeiro
+                        </a>
+                        <a class="btn btn-outline-dark" href="#">
+                            Conciliação
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

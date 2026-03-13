@@ -175,6 +175,7 @@ CREATE TABLE IF NOT EXISTS scc_plano_trabalho (
   entidade_conveniada_id uuid NOT NULL,
   edicao integer NOT NULL DEFAULT 1,
   status varchar(40) NOT NULL DEFAULT 'ATIVO',
+  descricao varchar(1000) NOT NULL,
   data_inicio date,
   data_fim date,
   created_at timestamptz NOT NULL DEFAULT now(),
@@ -213,6 +214,9 @@ CREATE TABLE IF NOT EXISTS scc_etapa_plano (
   despesa_id uuid NOT NULL,
   item_despesa_id uuid NOT NULL,
   valor numeric(14,2) NOT NULL DEFAULT 0,
+  descricao varchar(1000) NOT NULL,
+  duracao varchar(120),
+  quantidade numeric(14,2),
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
   CONSTRAINT fk_scc_etapa_meta
@@ -238,7 +242,7 @@ CREATE TABLE IF NOT EXISTS scc_convenio (
   unidade_administrativa_id uuid NULL,
   numero varchar(60) NOT NULL,
   protocolo varchar(60),
-  objeto text,
+  objeto varchar(1000) NOT NULL,
   data_assinatura date,
   data_inicio date,
   data_fim date,
@@ -307,10 +311,12 @@ FOR EACH ROW EXECUTE FUNCTION scc_set_updated_at();
 CREATE TABLE IF NOT EXISTS scc_prestacao (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   convenio_id uuid NOT NULL,
-  mes_referencia date NOT NULL, -- recomenda-se sempre o 1º dia do mês
+  mes_referencia integer NOT NULL, -- recomenda-se sempre o 1º dia do mês
+  ano_referencia integer NOT NULL,
   status varchar(40) NOT NULL DEFAULT 'PENDENTE',
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
+  
   CONSTRAINT fk_scc_prestacao_convenio
     FOREIGN KEY (convenio_id) REFERENCES scc_convenio(id),
   CONSTRAINT uq_scc_prestacao_mes UNIQUE (convenio_id, mes_referencia)
